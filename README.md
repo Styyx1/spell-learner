@@ -1,6 +1,6 @@
-# CommonLibSSE Plugin Template
+# Learn Spells From Staves
 
-This is a basic plugin template using CommonLibSSE.
+Plugin to allow learning spells from staves you use
 
 ### Requirements
 * [XMake](https://xmake.io) [2.8.2+]
@@ -8,9 +8,22 @@ This is a basic plugin template using CommonLibSSE.
 
 ## Getting Started
 ```bat
-git clone --recurse-submodules https://github.com/libxse/commonlibsse-template
-cd commonlibsse-template
+git clone --recurse-submodules https://github.com/Styyx1/spell-learner
+cd spell-learner
 ```
+
+### Pre-Build Instructions
+Until libxse's commonlib updates, you need to change RE::SendHUDMessage::ShowHUDMessage to have the correct IDs. SE and AE IDs are switched up.
+here's how it should look:
+```cpp
+void SendHUDMessage::ShowHUDMessage(const char* a_notification, const char* a_soundToPlay, bool a_cancelIfAlreadyQueued)
+{
+	using func_t = decltype(&SendHUDMessage::ShowHUDMessage);
+	static REL::Relocation<func_t> func{ RELOCATION_ID(52050, 52933) };
+	return func(a_notification, a_soundToPlay, a_cancelIfAlreadyQueued);
+}
+```
+If you don't make this change, the game will crash upon learning spells
 
 ### Build
 To build the project, run the following command:
@@ -41,6 +54,3 @@ If you want to upgrade the project's dependencies, run the following commands:
 xmake repo --update
 xmake require --upgrade
 ```
-
-## Documentation
-Please refer to the [Wiki](../../wiki/Home) for more advanced topics.

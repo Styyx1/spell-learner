@@ -24,8 +24,7 @@ namespace Menu {
 	void ResetDefaults();
 	void RenderSystem();
 	void DrawPerkSelector(bool *a_open);
-	void ShowPerkTooltip(RE::BGSPerk* perk);
-	
+	void ShowPerkTooltip(RE::BGSPerk* perk);	
 
 	namespace Settings {
 

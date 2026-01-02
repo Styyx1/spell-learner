@@ -138,6 +138,7 @@ namespace Menu {
     }
     void DrawPerkSelector(bool* a_open)
     {
+        
         ImGuiMCP::Begin("Perk Selector", a_open, ImGuiWindowFlags_NoCollapse);
 
         static char perkFilter[64] = "";
@@ -174,8 +175,10 @@ namespace Menu {
                     Config::Settings::spell_learn_perk.SetValue(configWrite);
                     REX::INFO("Found Perk: {} from {}", Settings::Var::spell_learn_perk->GetName(), configWrite);
                 }
-                if (a_open)
+                if (a_open) {
                     *a_open = false;
+                }
+                    
             }
             if (ImGuiMCP::IsItemHovered(ImGuiHoveredFlags_::ImGuiHoveredFlags_AllowWhenOverlapped)) {
                 ShowPerkTooltip(perk);
@@ -251,11 +254,16 @@ void __stdcall Menu::Settings::RenderSettings()
 
 void __stdcall Menu::MenuEventListener(SKSEMenuFramework::Model::EventType eventType)
 {
-    if (eventType == SKSEMenuFramework::Model::EventType::kCloseMenu) {        
-        REX::INFO("Auto-saving settings on menu close");
-        auto dummy_set = Config::Settings::base_xp_needed_for_spell_learning.GetValue();
-        Config::Settings::base_xp_needed_for_spell_learning.SetValue(dummy_set);
-        Config::Settings::GetSingleton()->UpdateSettings(true);
+    static bool saving = true;
+    if (eventType == SKSEMenuFramework::Model::EventType::kCloseMenu) {    
+        if (saving) {
+            saving = false;
+            REX::INFO("Auto-saving settings on menu close");
+            auto dummy_set = Config::Settings::base_xp_needed_for_spell_learning.GetValue();
+            Config::Settings::base_xp_needed_for_spell_learning.SetValue(dummy_set);
+            Config::Settings::GetSingleton()->UpdateSettings(true);
+        }
+        
     }
 }
 SKSEMenuFramework::Model::Event* event;
