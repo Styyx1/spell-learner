@@ -66,6 +66,13 @@ namespace MOD {
 			Translate("$ToolRequirePerk", tool_require_perk);
 			menu_translation_map["$ToolRequirePerk"] = tool_require_perk;
 
+			std::string log_to_console;
+			Translate("$LogToConsole", log_to_console);
+			menu_translation_map["$LogToConsole"] = log_to_console;
+			std::string tool_log_to_console;
+			Translate("$ToolLogToConsole", tool_log_to_console);
+			menu_translation_map["$ToolLogToConsole"] = tool_log_to_console;
+
 			REX::INFO("Completed translation for menu and stored it in map");
 
 		};

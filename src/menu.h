@@ -36,6 +36,7 @@ namespace Menu {
 			inline std::string base_xp_needed_for_spell_learning = "Required XP to Learn Spell";
 			inline std::string require_perk = "Requires Perk";
 			inline std::string spell_learn_perk = "Spell Learn Perk";
+			inline std::string log_to_console = "Console Logging";
 		}
 		namespace Tool {
 			inline std::string show_spell_learn_notif = "Toggle Notification for spells learned";
@@ -45,6 +46,7 @@ namespace Menu {
 			inline std::string base_xp_needed_for_spell_learning = "Amount of XP needed to learn a spell";
 			inline std::string require_perk = "Toggle to earn Spell XP only if you have a specific perk";
 			inline std::string spell_learn_perk = "Perk required to learn spells from staves if 'Requires Perk' is enabled";
+			inline std::string log_to_console = "Log affected spell, acquired XP and remaining XP to the console";
 		}
 
 		namespace Var {
@@ -56,6 +58,7 @@ namespace Menu {
 			inline bool require_perk;
 			inline uint32_t spell_learn_perk_id;
 			inline RE::BGSPerk* spell_learn_perk = nullptr;
+			inline bool log_to_console;
 		}
 		void RenderOptions();
 		void __stdcall RenderSettings();

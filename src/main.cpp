@@ -7,8 +7,7 @@
 void Listener(SKSE::MessagingInterface::Message* a_msg)
 {
 	if (a_msg->type == SKSE::MessagingInterface::kDataLoaded) {
-		//SKSE::Translation::ParseTranslation(MOD::MOD_NAME.data());
-		
+
 		Config::SpellData::GetSingleton()->PopulateAllowSet();
 		MOD::SpellLearnData::GetSingleton()->PopulateXPMapOnStart();
 		Config::Forms::GetSingleton()->LoadForms();

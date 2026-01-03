@@ -124,7 +124,7 @@ namespace MOD {
 			xp_to_add *= Config::Settings::concentration_xp_modifier.GetValue();
 		}
 		it->second += xp_to_add;
-		if (Config::Settings::show_spell_learn_notif.GetValue()) {
+		if (Config::Settings::log_to_console.GetValue()) {
 			std::string msg = std::format("{} has now {} xp, use it {} more times to learn the spell", a_spell->GetName(), it->second, Config::Settings::base_xp_needed_for_spell_learning.GetValue() - it->second);
 			RE::ConsoleLog::GetSingleton()->Print(msg.c_str());
 		}

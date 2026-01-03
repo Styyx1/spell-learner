@@ -12,6 +12,7 @@ namespace Config {
 		static inline REX::TOML::F32 base_xp_needed_for_spell_learning{ SPELL_LEARNING, "fBaseXPForSpellLearning", 100.0f };
 		static inline REX::TOML::Bool require_perk{ SPELL_LEARNING, "bRequiresPerk", false };
 		static inline REX::TOML::Str spell_learn_perk{ SPELL_LEARNING, "sSpellLearnPerk", std::string("Skyrim.esm|0x108a44") };
+		static inline REX::TOML::Bool log_to_console{ SPELL_LEARNING, "bLogToConsole", false };
 
 		void UpdateSettings(bool a_save) {
 			const auto toml = REX::TOML::SettingStore::GetSingleton();
@@ -40,6 +41,7 @@ namespace Config {
 					if (spell) {
 						if (MagicUtil::IsSpellPlayable(spell)) {
 							spell_allow_set.insert(spell);
+							
 						}
 					}
 				}

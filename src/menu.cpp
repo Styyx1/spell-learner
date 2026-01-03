@@ -66,6 +66,8 @@ namespace Menu {
 		Settings::Tool::concentration_xp_modifier = MOD::TranslateMenu::menu_translation_map.at("$ToolConcentrationXPModifier");
 		Settings::Tool::base_xp_needed_for_spell_learning = MOD::TranslateMenu::menu_translation_map.at("$ToolBaseXPNeededForSpellLearning");
 		Settings::Tool::require_perk = MOD::TranslateMenu::menu_translation_map.at("$ToolRequirePerk");
+        Settings::Tool::log_to_console = MOD::TranslateMenu::menu_translation_map.at("$ToolLogToConsole");
+        Settings::Label::log_to_console = MOD::TranslateMenu::menu_translation_map.at("$LogToConsole");
 		REX::INFO("Completed translation for menu");
     }
     
@@ -91,6 +93,7 @@ namespace Menu {
         concentration_xp_modifier = set::concentration_xp_modifier.GetValue();
         base_xp_needed_for_spell_learning = set::base_xp_needed_for_spell_learning.GetValue();
         require_perk = set::require_perk.GetValue();
+        log_to_console = set::log_to_console.GetValue();
 
     }
     void ResetDefaults()
@@ -104,6 +107,7 @@ namespace Menu {
 		concentration_xp_modifier = 1.0f;
 		base_xp_needed_for_spell_learning = 100.0f;
 		require_perk = false;
+        log_to_console = false;
 
 		
 
@@ -113,6 +117,7 @@ namespace Menu {
         set::concentration_xp_modifier.SetValue(concentration_xp_modifier);
         set::base_xp_needed_for_spell_learning.SetValue(base_xp_needed_for_spell_learning);
 		set::require_perk.SetValue(require_perk);
+        set::log_to_console.SetValue(log_to_console);
         //perk reset
         set::spell_learn_perk.SetValue("Skyrim.esm|0x108a44");
         auto form = FormUtil::GetFormFromString(set::spell_learn_perk.GetValue());
@@ -225,6 +230,8 @@ void Menu::Settings::RenderOptions()
     SettingSlider(Label::base_xp_needed_for_spell_learning.c_str(), Var::base_xp_needed_for_spell_learning, 10.0f,1000.0f, "%.0f", set::base_xp_needed_for_spell_learning,Tool::base_xp_needed_for_spell_learning.c_str());
     
     SettingCheckbox(Label::require_perk.c_str(), Var::require_perk,set::require_perk, Tool::require_perk.c_str());
+    ImGuiMCP::SameLine();
+    SettingCheckbox(Label::log_to_console.c_str(), Var::log_to_console, set::log_to_console, Tool::log_to_console.c_str());
 
     if (Config::Forms::spell_learn_perk) {
 		Var::spell_learn_perk = Config::Forms::spell_learn_perk;
