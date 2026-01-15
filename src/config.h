@@ -41,7 +41,6 @@ namespace Config {
 					if (spell) {
 						if (MagicUtil::IsSpellPlayable(spell)) {
 							spell_allow_set.insert(spell);
-							
 						}
 					}
 				}
@@ -49,18 +48,49 @@ namespace Config {
 			REX::INFO("Registered {} teachable spells from books", spell_allow_set.size());
 			return;
 		};
-	};
-
-	
+	};	
 
 	struct Forms : REX::Singleton<Forms> {
 
 		static inline RE::BGSPerk* spell_learn_perk{ nullptr };
 		static inline std::unordered_map<RE::BGSPerk*, bool> perk_init_map;
 
+		static inline RE::BGSListForm* SPELL_LIST_SPERG{ nullptr };
+
+		bool IsSpergPatchActive;
+
+		void AddToSpellSet() const {
+			if (IsSpergPatchActive) {
+				const auto size_default = SpellData::spell_allow_set.size();
+				if (Forms::SPELL_LIST_SPERG) {
+					Forms::SPELL_LIST_SPERG->ForEachForm([&](RE::TESForm* a_formInList) {
+						auto spell = a_formInList->As<RE::SpellItem>();
+						if (spell)
+						{
+							SpellData::spell_allow_set.insert(spell);
+							REX::DEBUG("insterted {}", spell->GetName());
+							return RE::BSContainer::ForEachResult::kContinue;
+						}
+						return RE::BSContainer::ForEachResult::kContinue;
+						});
+					REX::INFO("Registered {} from SPERG patch", static_cast<int>(SpellData::spell_allow_set.size()) - static_cast<int>(size_default));
+				}
+			}
+		}
+
 		void LoadForms() {
 
 			auto dataHandler = RE::TESDataHandler::GetSingleton();
+
+			IsSpergPatchActive = false;
+			if (MiscUtil::IsModLoaded(MOD::SPERG_PATCH)) {
+				SPELL_LIST_SPERG = dataHandler->LookupForm<RE::BGSListForm>(MOD::SPERG_SPELL_LIST, SPERG_PATCH);
+				if (SPELL_LIST_SPERG) {
+					IsSpergPatchActive = true;
+					
+				}
+			}
+
 
 			for (auto& perk : dataHandler->GetFormArray<RE::BGSPerk>()) {
 				RE::BSString desc;

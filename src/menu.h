@@ -49,6 +49,31 @@ namespace Menu {
 			inline std::string log_to_console = "Log affected spell, acquired XP and remaining XP to the console";
 		}
 
+		struct Labels {
+			const char* key;
+			std::string* value;
+		};
+
+		inline Labels kLabels[] = {
+			{ "$ShowSpellLearnNotification", &Label::show_spell_learn_notif },
+			{ "$OnlyInCombat", &Label::only_in_combat },
+			{ "$SpellXPMultiplier", &Label::spell_xp_multiplier },
+			{ "$ConcentrationXPModifier", &Label::concentration_xp_modifier },
+			{ "$BaseXPNeededForSpellLearning", &Label::base_xp_needed_for_spell_learning },
+			{ "$RequirePerk", &Label::require_perk },
+			{ "$SpellLearnPerk", &Label::spell_learn_perk },
+			{ "$LogToConsole", &Label::log_to_console },
+
+			{ "$ToolShowSpellLearnNotification", &Tool::show_spell_learn_notif },
+			{ "$ToolOnlyInCombat", &Tool::only_in_combat },
+			{ "$ToolSpellXPMultiplier", &Tool::spell_xp_multiplier },
+			{ "$ToolConcentrationXPModifier", &Tool::concentration_xp_modifier },
+			{ "$ToolBaseXPNeededForSpellLearning", &Tool::base_xp_needed_for_spell_learning },
+			{ "$ToolRequirePerk", &Tool::require_perk },
+			{ "$ToolSpellLearnPerk", &Tool::spell_learn_perk },
+			{ "$ToolLogToConsole", &Tool::log_to_console }, 
+		};
+
 		namespace Var {
 			inline bool show_spell_learn_notif;
 			inline bool only_in_combat;

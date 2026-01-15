@@ -51,23 +51,23 @@ inline bool SettingCheckbox(const char* label, bool& value_var, REX::TOML::Setti
 namespace Menu {
     void TranslateMenuNames()
     {
-		Label::system = FontAwesome::UnicodeToUtf8(0xf390) + " " + MOD::TranslateMenu::menu_translation_map.at("$System");
-		Label::save_settings = FontAwesome::UnicodeToUtf8(0xf0c7) + " " + MOD::TranslateMenu::menu_translation_map.at("$SaveSettings");
-		Label::restore_defaults = FontAwesome::UnicodeToUtf8(0xf0e2) + " " + MOD::TranslateMenu::menu_translation_map.at("$RestoreDefaults");
-		Settings::Label::show_spell_learn_notif = MOD::TranslateMenu::menu_translation_map.at("$ShowSpellLearnNotification");
-		Settings::Label::only_in_combat = MOD::TranslateMenu::menu_translation_map.at("$OnlyInCombat");
-		Settings::Label::spell_xp_multiplier = MOD::TranslateMenu::menu_translation_map.at("$SpellXPMultiplier");
-		Settings::Label::concentration_xp_modifier = MOD::TranslateMenu::menu_translation_map.at("$ConcentrationXPModifier");
-		Settings::Label::base_xp_needed_for_spell_learning = MOD::TranslateMenu::menu_translation_map.at("$BaseXPNeededForSpellLearning");
-		Settings::Label::require_perk = MOD::TranslateMenu::menu_translation_map.at("$RequirePerk");
-		Settings::Tool::show_spell_learn_notif = MOD::TranslateMenu::menu_translation_map.at("$ToolShowSpellLearnNotification");
-		Settings::Tool::only_in_combat = MOD::TranslateMenu::menu_translation_map.at("$ToolOnlyInCombat");
-		Settings::Tool::spell_xp_multiplier = MOD::TranslateMenu::menu_translation_map.at("$ToolSpellXPMultiplier");
-		Settings::Tool::concentration_xp_modifier = MOD::TranslateMenu::menu_translation_map.at("$ToolConcentrationXPModifier");
-		Settings::Tool::base_xp_needed_for_spell_learning = MOD::TranslateMenu::menu_translation_map.at("$ToolBaseXPNeededForSpellLearning");
-		Settings::Tool::require_perk = MOD::TranslateMenu::menu_translation_map.at("$ToolRequirePerk");
-        Settings::Tool::log_to_console = MOD::TranslateMenu::menu_translation_map.at("$ToolLogToConsole");
-        Settings::Label::log_to_console = MOD::TranslateMenu::menu_translation_map.at("$LogToConsole");
+        std::string system;
+        SKSE::Translation::Translate("$System", system);
+		Label::system = FontAwesome::UnicodeToUtf8(0xf390) + " " + system;
+        std::string save_settings;
+        SKSE::Translation::Translate("$SaveSettings", save_settings);
+		Label::save_settings = FontAwesome::UnicodeToUtf8(0xf0c7) + " " + save_settings;
+        std::string restore_settings;
+        SKSE::Translation::Translate("$RestoreDefaults", restore_settings);
+		Label::restore_defaults = FontAwesome::UnicodeToUtf8(0xf0e2) + " " + restore_settings;
+		
+        for (auto& entry : Menu::Settings::kLabels) {
+            std::string translated;
+            if (SKSE::Translation::Translate(entry.key, translated)) {
+                *entry.value = translated;
+            }
+        }
+
 		REX::INFO("Completed translation for menu");
     }
     

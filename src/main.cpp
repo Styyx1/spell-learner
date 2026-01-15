@@ -7,11 +7,11 @@
 void Listener(SKSE::MessagingInterface::Message* a_msg)
 {
 	if (a_msg->type == SKSE::MessagingInterface::kDataLoaded) {
-
+		const auto forms = Config::Forms::GetSingleton();
+		forms->LoadForms();
 		Config::SpellData::GetSingleton()->PopulateAllowSet();
+		forms->AddToSpellSet();
 		MOD::SpellLearnData::GetSingleton()->PopulateXPMapOnStart();
-		Config::Forms::GetSingleton()->LoadForms();
-		MOD::TranslateMenu::GetSingleton()->GetMenuTranslationMap();
 		Menu::TranslateMenuNames();
 	}
 }
