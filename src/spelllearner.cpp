@@ -1,4 +1,6 @@
 #include "spelllearner.h"
+#include "REX/TSingleton.h"
+#include "REX/TTomlSetting.h"
 #include "config.h"
 
 namespace MOD {
@@ -18,7 +20,7 @@ namespace MOD {
 			if (actor->IsPlayerRef()) {
 				if (a_spell) {
 					RE::SpellItem* spell{ nullptr };
-					auto data = SpellLearnData::GetSingleton();
+					auto data = REX::TSingleton<SpellLearnData>::GetSingleton();
 
 					if (!data->CanEarnSpellXP(actor))
 						return;
@@ -53,7 +55,7 @@ namespace MOD {
 						elapsed = 0.0f;
 
 						RE::SpellItem* spell = nullptr;
-						auto data = SpellLearnData::GetSingleton();
+						auto data = REX::TSingleton<SpellLearnData>::GetSingleton();
 
 						if (!data->CanEarnSpellXP(actor))
 							return;

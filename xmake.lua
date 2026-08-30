@@ -1,40 +1,31 @@
--- set minimum xmake version
-set_xmakever("2.8.2")
+-- include subprojects
+includes("lib/commonlibsse", "extern/styyx-utils")
 
--- includes
-includes("lib/commonlibsse")
-includes("extern/styyx-utils")
+local MOD_NAME = "styyx-spell-learner"
+local MOD_VERSION = "1.1.0"
+local MOD_DESC = "learn spells from staves"
 
--- set project
-set_project("spell-learner")
-set_version("1.0.0")
+-- set project constants
+set_project(MOD_NAME)
+set_version(MOD_VERSION)
 set_license("GPL-3.0")
-
--- set defaults
 set_languages("c++23")
 set_warnings("allextra")
+set_config("commonlib_toml", true)
+set_config("commonlib_json", true)
+set_config("use-fui", true)
 
--- add rules
+-- add common rules
 add_rules("mode.debug", "mode.releasedbg")
 add_rules("plugin.vsxmake.autoupdate")
 
-set_config("commonlib_json", true)
-set_config("commonlib_toml", true)
-
--- set policies
-set_policy("package.requires_lock", true)
-
--- targets
-target("spell-learner")
-    -- add dependencies to target
-    add_deps("commonlibsse")
+-- define targets
+target(MOD_NAME)
     add_deps("styyx-util")
-
-    -- add commonlibsse plugin
     add_rules("commonlibsse.plugin", {
-        name = "spell-learner",
+        name = MOD_NAME,
         author = "styyx",
-        description = "Learn spells from staves"
+        description = MOD_DESC
     })
 
     -- add src files

@@ -1,0 +1,9 @@
+name = "styyx-spell-learner"
+description = "learn spells from staves"
+modversion = "1.1.0"
+
+
+[configs]
+use-fui = true
+commonlib_toml = true
+commonlib_json = true

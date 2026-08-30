@@ -1,7 +1,7 @@
 #pragma once
 
 namespace MOD {
-	struct SpellLearner : REX::Singleton<SpellLearner> {
+	struct SpellLearner : REX::TSingleton<SpellLearner> {
 
 	private:
 		RE::ActorMagicCaster* caster;
@@ -16,10 +16,10 @@ namespace MOD {
 		static inline bool CombatCheck(RE::Actor* actor);
 
 		// Hooks
-		static inline REL::HookVFT _SpellCastHook{ RE::ActorMagicCaster::VTABLE[0], 0x9, SpellCast };
-		static inline REL::HookVFT _UpdateCasterHook{ RE::ActorMagicCaster::VTABLE[0], 0x1D, UpdateCaster };
+		static inline REL::THookVFT _SpellCastHook{ RE::ActorMagicCaster::VTABLE[0], 0x9, SpellCast };
+		static inline REL::THookVFT _UpdateCasterHook{ RE::ActorMagicCaster::VTABLE[0], 0x1D, UpdateCaster };
 	};
-	struct SpellLearnData : REX::Singleton<SpellLearnData> {
+	struct SpellLearnData : REX::TSingleton<SpellLearnData> {
 		RE::SpellItem* learn_spell;
 		float a_spell_xp{};
 		
